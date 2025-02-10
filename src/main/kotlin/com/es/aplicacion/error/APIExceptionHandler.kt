@@ -2,6 +2,7 @@ package com.es.aplicacion.error
 
 import com.es.aplicacion.error.exception.UnauthorizedException
 import jakarta.servlet.http.HttpServletRequest
+import org.apache.coyote.BadRequestException
 import org.springframework.http.HttpStatus
 import org.springframework.web.bind.annotation.ControllerAdvice
 import org.springframework.web.bind.annotation.ExceptionHandler
@@ -24,6 +25,14 @@ class APIExceptionHandler {
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     @ResponseBody
     fun handleGeneric(request: HttpServletRequest, e: Exception) : ErrorRespuesta {
+        e.printStackTrace()
+        return ErrorRespuesta(e.message!!, request.requestURI)
+    }
+
+    @ExceptionHandler(BadRequestException::class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ResponseBody
+    fun handle(request: HttpServletRequest, e: Exception) : ErrorRespuesta {
         e.printStackTrace()
         return ErrorRespuesta(e.message!!, request.requestURI)
     }
