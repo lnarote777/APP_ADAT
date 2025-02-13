@@ -4,6 +4,7 @@ import com.es.aplicacion.dto.UsuarioDTO
 import com.es.aplicacion.dto.UsuarioRegisterDTO
 import com.es.aplicacion.error.exception.BadRequestException
 import com.es.aplicacion.error.exception.UnauthorizedException
+import com.es.aplicacion.model.Direccion
 import com.es.aplicacion.model.Usuario
 import com.es.aplicacion.repository.UsuarioRepository
 import org.springframework.beans.factory.annotation.Autowired
@@ -66,7 +67,8 @@ class UsuarioService : UserDetailsService {
             password = passEncode,
             roles = usuarioInsertadoDTO.rol ?: "USER",
             email = usuarioInsertadoDTO.email,
-            _id = null
+            _id = null,
+            direccion = Direccion("","","","", "")
         )
 
         val usuarioIsert = usuarioRepository.insert(usuario)
